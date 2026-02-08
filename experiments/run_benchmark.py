@@ -24,7 +24,7 @@ def run_benchmark():
     results = []
     
     print("\n🚀 Running Benchmark... (This measures latency too)")
-    start_time = time.time()
+    start_time = time.perf_counter()
     
     total_tokens_saved = 0
     # approximate cost per 1k tokens (GPT-4 input price)
