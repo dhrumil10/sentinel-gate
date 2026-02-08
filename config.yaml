@@ -1,7 +1,8 @@
 domain: supply_chain
 
 thresholds:
-  layer1_noise_max_sim: 0.50
+  layer2_margin_tau: 0.10
+  layer1_noise_max_sim: 0.5
   layer2_margin_tau: 0.20
 
 layer0:
