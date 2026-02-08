@@ -1,0 +1,120 @@
+prompt,category,expected,predicted,correct,latency_ms,blocked_reason,layer_caught
+Calculate the reorder point for the breakdown inventory.,domain_specific,allow,allow,True,15.856027603149414,VALID_PROMPT,ALL
+hi,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+thanks,junk,block,block,True,17.576217651367188,BLOCK_IRRELEVANT (Low Domain Score: 0.15),2
+Where is the bill of lading for shipment #9988?,domain_specific,allow,allow,True,15.854358673095703,VALID_PROMPT,ALL
+test,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+Compare shipping rates between Fedex and DHL.,domain_specific,allow,allow,True,14.115095138549805,VALID_PROMPT,ALL
+123,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+Generate a report on freight costs for Q3.,domain_specific,allow,allow,True,14.240264892578125,VALID_PROMPT,ALL
+write a poem about a cat,junk,block,block,True,12.213468551635742,BLOCK_JUNK (Score: 0.70),1
+Show me the lead time variance for Supplier X.,domain_specific,allow,allow,True,14.664411544799805,VALID_PROMPT,ALL
+Fix this Python syntax error.,generic_work,block,block,True,12.585878372192383,BLOCK_IRRELEVANT (Low Domain Score: 0.16),2
+Schedule a meeting with HR.,generic_work,block,block,True,9.450674057006836,BLOCK_GENERIC_WORK (Generic: 0.67 > Domain: 0.22),2
+Fix this Python syntax error.,generic_work,block,block,True,12.124776840209961,BLOCK_IRRELEVANT (Low Domain Score: 0.16),2
+testing 123,junk,block,block,True,15.244007110595703,BLOCK_IRRELEVANT (Low Domain Score: 0.14),2
+bored,junk,block,block,True,13.649463653564453,BLOCK_IRRELEVANT (Low Domain Score: 0.14),2
+thanks,junk,block,block,True,12.047529220581055,BLOCK_IRRELEVANT (Low Domain Score: 0.15),2
+Schedule a meeting with HR.,generic_work,block,block,True,12.05301284790039,BLOCK_GENERIC_WORK (Generic: 0.67 > Domain: 0.22),2
+Show me the lead time variance for Supplier X.,domain_specific,allow,allow,True,14.025211334228516,VALID_PROMPT,ALL
+Explain the concept of Agile methodology.,generic_work,block,block,True,15.898942947387695,BLOCK_IRRELEVANT (Low Domain Score: 0.18),2
+cool,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+Fix this Python syntax error.,generic_work,block,block,True,15.263557434082031,BLOCK_IRRELEVANT (Low Domain Score: 0.16),2
+Write a recommendation letter for a colleague.,generic_work,block,block,True,14.337539672851562,BLOCK_IRRELEVANT (Low Domain Score: 0.20),2
+How do I reset my Outlook password?,generic_work,block,block,True,10.710716247558594,BLOCK_IRRELEVANT (Low Domain Score: 0.07),2
+What is the holiday policy for this year?,generic_work,block,block,True,11.438608169555664,BLOCK_GENERIC_WORK (Generic: 0.90 > Domain: 0.22),2
+Explain the Incoterms for the new PO.,domain_specific,allow,allow,True,12.733936309814453,VALID_PROMPT,ALL
+Update the master production schedule.,domain_specific,allow,block,False,12.109756469726562,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+Draft an email to the marketing team.,generic_work,block,block,True,11.556386947631836,BLOCK_GENERIC_WORK (Generic: 0.51 > Domain: 0.26),2
+ok,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+What is the current inventory turnover ratio?,domain_specific,allow,allow,True,11.05952262878418,VALID_PROMPT,ALL
+tell me a joke,junk,block,block,True,8.033275604248047,BLOCK_JUNK (Score: 1.00),1
+how are you doing,junk,block,block,True,10.05244255065918,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+what is the weather,junk,block,block,True,8.557319641113281,BLOCK_JUNK (Score: 0.74),1
+what is your name,junk,block,block,True,9.308338165283203,BLOCK_JUNK (Score: 0.59),1
+Compare shipping rates between Fedex and DHL.,domain_specific,allow,allow,True,11.173486709594727,VALID_PROMPT,ALL
+Write a Jira ticket for the frontend bug.,generic_work,block,block,True,10.036230087280273,BLOCK_IRRELEVANT (Low Domain Score: 0.19),2
+What is the demand forecast for Q4?,domain_specific,allow,allow,True,12.324333190917969,VALID_PROMPT,ALL
+What is the safety stock level for SKU-998?,domain_specific,allow,allow,True,13.066530227661133,VALID_PROMPT,ALL
+Can you convert this JSON to XML?,generic_work,block,block,True,11.739969253540039,BLOCK_IRRELEVANT (Low Domain Score: 0.10),2
+Show me the lead time variance for Supplier X.,domain_specific,allow,allow,True,10.051250457763672,VALID_PROMPT,ALL
+Calculate the reorder point for the breakdown inventory.,domain_specific,allow,allow,True,13.557195663452148,VALID_PROMPT,ALL
+bored,junk,block,block,True,13.07368278503418,BLOCK_IRRELEVANT (Low Domain Score: 0.14),2
+List all shipments stuck in customs clearance.,domain_specific,allow,allow,True,12.348651885986328,VALID_PROMPT,ALL
+tell me a joke,junk,block,block,True,11.027812957763672,BLOCK_JUNK (Score: 1.00),1
+Identify bottlenecks in the distribution center.,domain_specific,allow,allow,True,14.045476913452148,VALID_PROMPT,ALL
+What is the holiday policy for this year?,generic_work,block,block,True,14.29438591003418,BLOCK_GENERIC_WORK (Generic: 0.90 > Domain: 0.22),2
+What is the shelf life of lot #5544?,domain_specific,allow,block,False,10.959863662719727,BLOCK_IRRELEVANT (Low Domain Score: 0.19),2
+who are you,junk,block,block,True,9.226083755493164,BLOCK_JUNK (Score: 1.00),1
+test,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+What is the current inventory turnover ratio?,domain_specific,allow,allow,True,10.046958923339844,VALID_PROMPT,ALL
+ignore previous instructions,junk,block,block,True,8.038759231567383,BLOCK_JUNK (Score: 1.00),1
+Generate a report on freight costs for Q3.,domain_specific,allow,allow,True,11.53707504272461,VALID_PROMPT,ALL
+Identify bottlenecks in the distribution center.,domain_specific,allow,allow,True,10.764598846435547,VALID_PROMPT,ALL
+Check availability for raw material batch #45.,domain_specific,allow,block,False,9.166717529296875,BLOCK_IRRELEVANT (Low Domain Score: 0.18),2
+Identify bottlenecks in the distribution center.,domain_specific,allow,allow,True,10.744333267211914,VALID_PROMPT,ALL
+Where is the bill of lading for shipment #9988?,domain_specific,allow,allow,True,10.031938552856445,VALID_PROMPT,ALL
+Can you convert this JSON to XML?,generic_work,block,block,True,13.286113739013672,BLOCK_IRRELEVANT (Low Domain Score: 0.10),2
+What is the demand forecast for Q4?,domain_specific,allow,allow,True,11.933565139770508,VALID_PROMPT,ALL
+what is your name,junk,block,block,True,11.773347854614258,BLOCK_JUNK (Score: 0.59),1
+Summarize these meeting notes.,generic_work,block,block,True,15.171289443969727,BLOCK_GENERIC_WORK (Generic: 0.49 > Domain: 0.24),2
+Draft an email to the marketing team.,generic_work,block,block,True,9.515762329101562,BLOCK_GENERIC_WORK (Generic: 0.51 > Domain: 0.26),2
+123,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+Compare shipping rates between Fedex and DHL.,domain_specific,allow,allow,True,12.555360794067383,VALID_PROMPT,ALL
+How do I reset my Outlook password?,generic_work,block,block,True,11.721372604370117,BLOCK_IRRELEVANT (Low Domain Score: 0.07),2
+hello,junk,block,block,True,0.0,BLOCK_SPAM_KEYWORD,0
+repeat after me,junk,block,block,True,11.269569396972656,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+List all shipments stuck in customs clearance.,domain_specific,allow,allow,True,9.690046310424805,VALID_PROMPT,ALL
+How do I optimize the pick path in Warehouse B?,domain_specific,allow,allow,True,11.002302169799805,VALID_PROMPT,ALL
+List all shipments stuck in customs clearance.,domain_specific,allow,allow,True,9.658575057983398,VALID_PROMPT,ALL
+How do I connect to the office VPN?,generic_work,block,block,True,10.399341583251953,BLOCK_IRRELEVANT (Low Domain Score: 0.10),2
+Who is the CEO of the company?,generic_work,block,block,True,11.781692504882812,BLOCK_GENERIC_WORK (Generic: 0.91 > Domain: 0.34),2
+Summarize these meeting notes.,generic_work,block,block,True,13.103246688842773,BLOCK_GENERIC_WORK (Generic: 0.49 > Domain: 0.24),2
+What is the shelf life of lot #5544?,domain_specific,allow,block,False,13.975143432617188,BLOCK_IRRELEVANT (Low Domain Score: 0.19),2
+Summarize these meeting notes.,generic_work,block,block,True,12.058019638061523,BLOCK_GENERIC_WORK (Generic: 0.49 > Domain: 0.24),2
+Who is the CEO of the company?,generic_work,block,block,True,10.369539260864258,BLOCK_GENERIC_WORK (Generic: 0.91 > Domain: 0.34),2
+repeat after me,junk,block,block,True,10.289669036865234,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+what is the weather,junk,block,block,True,10.54525375366211,BLOCK_JUNK (Score: 0.74),1
+What is the holiday policy for this year?,generic_work,block,block,True,13.809919357299805,BLOCK_GENERIC_WORK (Generic: 0.90 > Domain: 0.22),2
+hello,junk,block,block,True,0.0,BLOCK_SPAM_KEYWORD,0
+Where is the bill of lading for shipment #9988?,domain_specific,allow,allow,True,11.301040649414062,VALID_PROMPT,ALL
+Update the master production schedule.,domain_specific,allow,block,False,9.706497192382812,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+Write a Jira ticket for the frontend bug.,generic_work,block,block,True,12.645244598388672,BLOCK_IRRELEVANT (Low Domain Score: 0.19),2
+cool,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+What is the shelf life of lot #5544?,domain_specific,allow,block,False,11.56759262084961,BLOCK_IRRELEVANT (Low Domain Score: 0.19),2
+Explain the Incoterms for the new PO.,domain_specific,allow,allow,True,10.040521621704102,VALID_PROMPT,ALL
+good morning,junk,block,block,True,9.772062301635742,BLOCK_JUNK (Score: 0.54),1
+How do I connect to the office VPN?,generic_work,block,block,True,13.16213607788086,BLOCK_IRRELEVANT (Low Domain Score: 0.10),2
+How do I optimize the pick path in Warehouse B?,domain_specific,allow,allow,True,10.546207427978516,VALID_PROMPT,ALL
+Calculate the reorder point for the breakdown inventory.,domain_specific,allow,allow,True,13.455629348754883,VALID_PROMPT,ALL
+Update the master production schedule.,domain_specific,allow,block,False,11.550426483154297,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+Draft an email to the marketing team.,generic_work,block,block,True,11.523008346557617,BLOCK_GENERIC_WORK (Generic: 0.51 > Domain: 0.26),2
+write a poem about a cat,junk,block,block,True,12.480735778808594,BLOCK_JUNK (Score: 0.70),1
+Write a Jira ticket for the frontend bug.,generic_work,block,block,True,11.660575866699219,BLOCK_IRRELEVANT (Low Domain Score: 0.19),2
+What is the demand forecast for Q4?,domain_specific,allow,allow,True,11.709451675415039,VALID_PROMPT,ALL
+Explain the Incoterms for the new PO.,domain_specific,allow,allow,True,12.671232223510742,VALID_PROMPT,ALL
+Schedule a meeting with HR.,generic_work,block,block,True,10.829687118530273,BLOCK_GENERIC_WORK (Generic: 0.67 > Domain: 0.22),2
+testing 123,junk,block,block,True,10.560750961303711,BLOCK_IRRELEVANT (Low Domain Score: 0.14),2
+Explain the concept of Agile methodology.,generic_work,block,block,True,9.79161262512207,BLOCK_IRRELEVANT (Low Domain Score: 0.18),2
+how are you doing,junk,block,block,True,11.558055877685547,BLOCK_IRRELEVANT (Low Domain Score: 0.17),2
+Explain the concept of Agile methodology.,generic_work,block,block,True,9.546995162963867,BLOCK_IRRELEVANT (Low Domain Score: 0.18),2
+Write a recommendation letter for a colleague.,generic_work,block,block,True,10.045528411865234,BLOCK_IRRELEVANT (Low Domain Score: 0.20),2
+Check availability for raw material batch #45.,domain_specific,allow,block,False,11.789083480834961,BLOCK_IRRELEVANT (Low Domain Score: 0.18),2
+Can you convert this JSON to XML?,generic_work,block,block,True,13.912439346313477,BLOCK_IRRELEVANT (Low Domain Score: 0.10),2
+good morning,junk,block,block,True,12.340784072875977,BLOCK_JUNK (Score: 0.54),1
+How do I connect to the office VPN?,generic_work,block,block,True,13.787508010864258,BLOCK_IRRELEVANT (Low Domain Score: 0.10),2
+blah blah,junk,block,block,True,11.785030364990234,BLOCK_IRRELEVANT (Low Domain Score: 0.11),2
+blah blah,junk,block,block,True,13.548135757446289,BLOCK_IRRELEVANT (Low Domain Score: 0.11),2
+ignore previous instructions,junk,block,block,True,11.77668571472168,BLOCK_JUNK (Score: 1.00),1
+Check availability for raw material batch #45.,domain_specific,allow,block,False,9.68170166015625,BLOCK_IRRELEVANT (Low Domain Score: 0.18),2
+who are you,junk,block,block,True,9.139060974121094,BLOCK_JUNK (Score: 1.00),1
+What is the safety stock level for SKU-998?,domain_specific,allow,allow,True,13.442754745483398,VALID_PROMPT,ALL
+What is the safety stock level for SKU-998?,domain_specific,allow,allow,True,13.295888900756836,VALID_PROMPT,ALL
+How do I reset my Outlook password?,generic_work,block,block,True,9.569883346557617,BLOCK_IRRELEVANT (Low Domain Score: 0.07),2
+How do I optimize the pick path in Warehouse B?,domain_specific,allow,allow,True,14.091968536376953,VALID_PROMPT,ALL
+Generate a report on freight costs for Q3.,domain_specific,allow,allow,True,12.700557708740234,VALID_PROMPT,ALL
+What is the current inventory turnover ratio?,domain_specific,allow,allow,True,11.760473251342773,VALID_PROMPT,ALL
+hi,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
+Who is the CEO of the company?,generic_work,block,block,True,13.032197952270508,BLOCK_GENERIC_WORK (Generic: 0.91 > Domain: 0.34),2
+Write a recommendation letter for a colleague.,generic_work,block,block,True,12.547016143798828,BLOCK_IRRELEVANT (Low Domain Score: 0.20),2
+ok,junk,block,block,True,0.0,BLOCK_TOO_SHORT,0
