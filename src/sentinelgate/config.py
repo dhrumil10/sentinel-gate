@@ -4,7 +4,8 @@ import yaml
 
 class Thresholds(BaseModel):
     layer1_noise_max_sim: float = 0.50
-    layer2_margin_tau: float = 0.20
+    layer2_margin_tau: float = 0.10
+    
 
 class Layer0Cfg(BaseModel):
     min_tokens: int = 2
