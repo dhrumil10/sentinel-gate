@@ -346,6 +346,7 @@ npm run dev
 docker-compose up --build
 ```
 ## 📂 Directory Structuresentinel-gate/
+```
 ├── config.yaml          # Gate configuration (domain, thresholds, anchors)
 ├── Dockerfile           # Container config
 ├── requirements.txt     # Python dependencies
@@ -372,6 +373,8 @@ docker-compose up --build
         ├── config.py
         ├── pipeline.py  # Gate logic
         └── similarity.py
+```
+---
 ## 📊 Performance 
 ### Evaluated on a synthetic enterprise dataset (119 prompts).
 
