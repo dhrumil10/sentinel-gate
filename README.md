@@ -25,7 +25,9 @@ The system uses a **hierarchical cheap-first pipeline** combined with an **appro
 
 ## 🚀 Architecture Overview
 
-SentinelGate follows a **cascading cost design** — cheaper checks execute first, more expensive checks later.
+SentinelGate follows a **cascading cost design** — cheaper checks execute first, more expensive checks later. This ensures that 90% of junk prompts never consume expensive compute resources.
+
+![SentinelGate Architecture Diagram](Gemini_Generated_Image_s2k59is2k59is2k5.jpg)
 
 ### Layered Pipeline
 
@@ -225,3 +227,9 @@ SentinelGate is fully **config-driven** via `config.yaml`, allowing for real-tim
   - Domain relevance filtering
   - Human-in-the-loop AI control
   - Cost-aware AI system design
+
+## 🎥 Demo Video
+
+See the guardrail in action: blocking junk, filtering off-domain noise, and handling admin approvals in real-time.
+
+[Watch the Full Demo](https://drive.google.com/file/d/1Gw1cTGUSmWXGlnL4JnOY5EQeIQ-6rdin/view?usp=sharing)
