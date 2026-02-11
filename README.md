@@ -27,7 +27,7 @@ The system uses a **hierarchical cheap-first pipeline** combined with an **appro
 
 SentinelGate follows a **cascading cost design** — cheaper checks execute first, more expensive checks later. This ensures that 90% of junk prompts never consume expensive compute resources.
 
-![SentinelGate Architecture Diagram](assets/Architecture Diagram.jpg)
+![SentinelGate Architecture Diagram](assets/Architecture%20Diagram.png)
 
 ### Layered Pipeline
 
