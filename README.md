@@ -12,7 +12,7 @@ It leverages **Sentence-Transformers**, **Vector Embeddings**, and a **Human-in-
 
 ## 🔗 Quick Links
 
-- **📄 Research Paper**: [Read the IEEE Conference Paper](paper/draft.md) *(Coming Soon to arXiv)*
+- **📄 Research Paper**: [Read the IEEE Conference Paper](paper/SentinelGate.pdf) *(Coming Soon to arXiv)*
 - **🎥 Live Demo**: [Watch the 11-Min Walkthrough](https://drive.google.com/file/d/1Gw1cTGUSmWXGlnL4JnOY5EQeIQ-6rdin/view?usp=sharing)
 - **API Docs**: `http://localhost:8000/docs` (Local)
 - **GitHub**: [dhrumil10/sentinel-gate](https://github.com/dhrumil10/sentinel-gate)
