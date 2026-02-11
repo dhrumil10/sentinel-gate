@@ -1,159 +1,227 @@
 # SentinelGate: Cost-Efficient LLM Guardrails 🛡️
 
-**A Hierarchical "Cheap-First" Architecture for Enterprise AI Governance.**
+**A Hierarchical "Cheap-First" Architecture for Enterprise AI Governance and FinOps.**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Accuracy](https://img.shields.io/badge/accuracy-92.44%25-green)
-![Latency](https://img.shields.io/badge/avg_latency-9.65ms-brightgreen)
+![Latency](https://img.shields.io/badge/avg_latency-~10ms-brightgreen)
+
+---
 
 ## 📌 Abstract
-SentinelGate is a lightweight, pre-flight guardrail system designed to reduce Enterprise LLM costs by **40%+**. It blocks irrelevant and off-domain prompts *before* they hit expensive LLM APIs.
 
-Unlike standard guardrails that focus on safety (hate speech), SentinelGate focuses on **FinOps and Domain Relevance**. It uses a 3-stage hierarchical filtering pipeline to distinguish between **Valid Supply Chain Queries** and **Generic Corporate Noise** (like HR/IT tickets) with **92.44% accuracy** on a 119-prompt dataset.
+SentinelGate is a lightweight **pre-flight LLM guardrail system** designed to reduce enterprise AI costs by **40%+** by blocking irrelevant, noisy, and off-domain prompts *before* they reach expensive LLM APIs.
 
-## 🚀 The Architecture
-The system uses a "Cascading Cost" design: cheap checks run first; expensive checks run last.
+Unlike traditional guardrails focused on safety (toxicity, PII, policy), SentinelGate focuses on:
 
-1. **Layer 0 (Regex/Heuristic):** Instantly blocks junk/spam (e.g., "hi", "test", symbols-only) in <1ms.
-2. **Layer 1 (Semantic Noise):** Uses `sentence-transformers/all-MiniLM-L6-v2` to detect chitchat (e.g., "Tell me a joke") in ~10ms.
-3. **Layer 2 (Contrastive Domain):** A margin-based "Positive vs. Negative Anchor" check that distinguishes Domain Work (Supply Chain) from Generic Work (HR/IT/Admin).
+- **FinOps efficiency**
+- **Domain relevance**
+- **Enterprise prompt hygiene**
 
-### 🔧 What is Tau?
-Layer 2 uses a margin score:
-- `margin = similarity(domain_positive) - similarity(domain_negative)`
-- A prompt is **allowed** if `margin >= tau`
+The system uses a **hierarchical cheap-first pipeline** combined with an **approved bypass memory (human-in-the-loop)** to achieve both **cost control** and **organizational flexibility**.
 
-Lower tau (e.g., 0.05) is more permissive (higher recall), higher tau (e.g., 0.10) is stricter (lower risk of off-domain passing).
-For enterprise usage, SentinelGate recommends **tau = 0.10**.
+---
 
-## ✅ Prompt Sanitization (New)
-SentinelGate includes a safe prefix sanitizer that removes greeting/filler prefixes to reduce false blocks and improve domain matching.
+## 🚀 Architecture Overview
 
-Example:
-- `hey, where is my shipment` → `where is my shipment`
+SentinelGate follows a **cascading cost design** — cheaper checks execute first, more expensive checks later.
 
-The API returns both `original_prompt` and `clean_prompt` for transparency.
+### Layered Pipeline
+
+### **L0 — Heuristic / Regex Junk Filter**
+- Blocks empty prompts, greetings, test messages
+- Examples: `hi`, `test`, `???`
+- Latency: `< 1 ms`
+
+### **L1 — Semantic Noise Filter**
+- Uses `sentence-transformers/all-MiniLM-L6-v2`
+- Blocks chitchat / non-work content
+- Examples: `tell me a joke`, `write a poem`
+- Latency: `~8–10 ms`
+
+### **L2 — Contrastive Domain Gate**
+- **Margin-based similarity check:**
+  `margin = sim(domain_positive) - sim(domain_negative)`
+- Distinguishes **Supply Chain work** from **generic corporate work** (HR / IT / Admin).
+- Passes if `margin >= tau`.
+
+### **L2.5 — Approved Bypass Memory (NEW)**
+- Human-approved off-domain examples are stored with embeddings
+- Similar future prompts auto-pass **without touching LLM**
+- Enables:
+- Domain expansion
+- Exception handling
+- Enterprise flexibility
+
+---
+
+## 🔧 Tau Threshold (Layer 2)
+The `tau` parameter controls the strictness of the Domain Gate.
+- **Lower `tau`**: Higher recall (more permissive).
+- **Higher `tau`**: Stricter domain enforcement.
+
+**Recommended Enterprise Value:** `layer2_margin_tau: 0.10`
+
+**Recommended enterprise value**:
+- Distinguishes **Supply Chain work** from **generic corporate work** (HR / IT / Admin)
+- Passes if `margin >= tau`
+
+### **L2.5 — Approved Bypass Memory (NEW)**
+- Human-approved off-domain examples are stored with embeddings
+- Similar future prompts auto-pass **without touching LLM**
+- Enables:
+- Domain expansion
+- Exception handling
+- Enterprise flexibility
+
+---
+
+## 🔧 Tau Threshold (Layer 2)
+
+- Lower `tau` → higher recall (more permissive)
+- Higher `tau` → stricter domain enforcement
+
+**Recommended enterprise value**:
+
+---
+### layer2_margin_tau: 0.10
+
+Both `original_prompt` and `clean_prompt` are returned for transparency.
+
+---
+
+## 🧠 Human-in-the-Loop Bypass Flow (NEW)
+
+SentinelGate supports **admin-reviewed domain expansion**.
+
+### Workflow
+
+1. User submits an off-domain prompt
+2. Prompt is blocked at L2
+3. User requests bypass: `POST /bypass/request`
+4. Admin reviews & approves: `POST /admin/bypass/approve`
+
+### POST /admin/bypass/approve
+
+5. Canonical prompt is embedded & stored
+6. Future similar prompts auto-pass at **L2.5**
+
+This allows SentinelGate to **learn organizational exceptions safely**.
+
+
+
+## 🖥️ Web UI (React + Vite)
+
+SentinelGate includes a demo UI for:
+- Live prompt scanning
+- Layer visualization (L0 / L1 / L2 / L2.5)
+- Debug metrics (similarity, margin)
+- Approved bypass visibility
+- History tracking
+
+### Run UI
+```bash
+cd sentinelgate-ui
+npm install
+npm run dev
+```
+### Open:
+```arduino
+http://localhost:5173
+```
 
 ## 📊 Benchmark Results
-Tested on a synthetic dataset of 119 enterprise prompts.
 
+Evaluated on a synthetic enterprise dataset (119 prompts).
 | Metric | Result |
 | :--- | :--- |
 | **Overall Accuracy** | **92.44%** |
 | **Junk Blocking** | 100.0% |
 | **Generic Blocking** | 100.0% |
 | **Domain Accuracy** | 80.0% |
-| **Avg Latency** | ~9.65 ms |
+| **Avg Gate Latency** | ~9.65 ms |
 | **Est. Cost Savings** | ~$1.26 per 100 requests |
 
-## 🛠️ Installation & Usage
-
-### 1. Clone the Repo
-```bash
-git clone https://github.com/dhrumil10/sentinel-gate.git
-cd sentinel-gate
+**Example ```/scan``` Response**
+```json
+{
+  "decision": "PASSED",
+  "layer_caught": "L2.5",
+  "reason": "approved_match",
+  "gate_latency_ms": 39.04,
+  "action": "SEND_TO_LLM",
+  "original_prompt": "vpn is not working on my corporate laptop",
+  "clean_prompt": "vpn is not working on my corporate laptop",
+  "approved_match": {
+    "domain": "it_helpdesk",
+    "similarity": 0.83
+  },
+  "debug": {
+    "similarity": 0.83,
+    "margin": null
+  }
+}
 ```
-### 2. Install Dependencies
+
+## 🛠️ Installation
 ```bash
+git clone [https://github.com/dhrumil10/sentinel-gate.git](https://github.com/dhrumil10/sentinel-gate.git)
+cd sentinel-gate
 python -m venv venv
 ```
-# Windows: venv\Scripts\activate
-# Mac/Linux: source venv/bin/activate
+
+* **Windows:**
+    ```bash
+    venv\Scripts\activate
+    ```
+* **Mac / Linux:**
+    ```bash
+    source venv/bin/activate
+    ```
 ```bash
 pip install -r requirements.txt
 ```
 
-## 🚀 Run the API (FastAPI)
-
-### From repo root:
+## 🚀 Run Backend  
 ```bash
-Windows PowerShell
+# Windows
 $env:PYTHONPATH="."
 uvicorn src.main:app --reload
-```
 
-### Mac/Linux
-```bash
+# Mac/Linux
 export PYTHONPATH="."
 uvicorn src.main:app --reload
 ```
-
-### Open Swagger:
-```
+**Swagger:-**
+```arduino
 http://127.0.0.1:8000/docs
 ```
 
-## 🔌 API Endpoints
-```
-GET / → health check
-
-POST /scan → scan a prompt (PASS/BLOCK)
-
-GET /analytics → FinOps metrics (blocked count, estimated savings)
-
-Example /scan Response
-{
-  "decision": "PASSED",
-  "layer_caught": "L2",
-  "reason": "domain_match",
-  "gate_latency_ms": 40.08,
-  "action": "SEND_TO_LLM",
-  "original_prompt": "hey, where is my shipment",
-  "clean_prompt": "where is my shipment",
-  "debug": { "similarity": 0.48, "margin": 0.31 }
-}
-```
-
 ## 🧪 Experiments
-### 1) Evaluate (metrics + confusion matrix)
-# Windows PowerShell
-```
-$env:PYTHONPATH="."
+**Evaluate:-**
+```bash
 python experiments/evaluate.py
 ```
-
-### 2) Tune Tau (sweep margin threshold)
-# Windows PowerShell
-```
-$env:PYTHONPATH="."
+**Tune Tau:-**
+```bash
 python experiments/tune_tau.py
 ```
-
-### Outputs:
+**Outputs:-**
+```bash
+experiments/tau_sweep_results.csv
 ```
-prints tau sweep table
-
-saves: experiments/tau_sweep_results.csv
-```
-
 ## ⚙️ Configuration
+SentinelGate is fully **config-driven** via `config.yaml`, allowing for real-time adjustments without code changes:
+- **Domain Definition**: Define "In-Domain" vs. "Off-Domain" scopes.
+- **Anchor Phrases**: Centralize positive and negative semantic anchors.
+- **Thresholds**: Fine-tune `layer2_margin_tau` for precision.
+- **Noise Filters**: Configure L1 filters to block "junk" or "chitchat."
 
-### SentinelGate is config-driven via config.yaml:
+## 📄 Research Direction
 
-### domain name
-
-**Layer 0 rules**
-
-**Layer 1 anchors**
-
-**Layer 2 positive/negative anchors**
-
-thresholds (layer1_noise_max_sim, layer2_margin_tau)
-
-**Important**:
-
-keep layer2_margin_tau only once in config.yaml
-
-### Recommended enterprise config:
-
-**layer2_margin_tau**: 0.10
-
-## 📄 Research & Citation
-
-This project supports a research direction around FinOps-driven LLM governance and domain relevance filtering.
-
-### Proposed paper title:
-"SentinelGate: A Hierarchical Cheap-First Guardrail Architecture for Cost-Efficient Domain Relevance"
-
-::contentReference[oaicite:0]{index=0}
+### This project supports research into:
+  - FinOps-driven LLM governance
+  - Domain relevance filtering
+  - Human-in-the-loop AI control
+  - Cost-aware AI system design
