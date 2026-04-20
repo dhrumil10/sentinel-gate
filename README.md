@@ -1,42 +1,133 @@
-# SentinelGate: Cost-Efficient LLM Guardrails 🛡️
 
-**A Hierarchical "Cheap-First" Architecture for Enterprise AI Governance.**
+# 🛡️ SentinelGate
+**Enterprise FinOps Guardrail for LLM Workflows**
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.9%2B-blue)
-![Accuracy](https://img.shields.io/badge/accuracy-92.44%25-green)
-![Latency](https://img.shields.io/badge/avg_latency-9.65ms-brightgreen)
+**SentinelGate** is a hierarchical "cheap-first" guardrail architecture designed to optimize enterprise LLM costs. By filtering irrelevant, low-value, and off-domain prompts *before* they reach expensive models (like GPT-4), it prevents "token leakage" and ensures AI agents only process valid business queries.
 
-## 📌 Abstract
-SentinelGate is a lightweight, pre-flight guardrail system designed to reduce Enterprise LLM costs by **40%+**. It blocks irrelevant and off-domain prompts *before* they hit expensive LLM APIs.
+It leverages **Sentence-Transformers**, **Vector Embeddings**, and a **Human-in-the-Loop** memory system to:
+- Instantly block spam and trivial noise (<1ms latency)
+- Detect semantic chit-chat using dense vector embeddings
+- Disambiguate valid domain queries (e.g., Supply Chain) from generic corporate noise (IT/HR)
+- Adapt to new use cases via an admin-approved memory store without model retraining
 
-Unlike standard guardrails that focus on safety (hate speech), SentinelGate focuses on **FinOps and Domain Relevance**. It uses a 3-stage hierarchical filtering pipeline to distinguish between **Valid Supply Chain Queries** and **Generic Corporate Noise** (like HR/IT tickets) with **92.44% accuracy** on a 119-prompt dataset.
+## 🔗 Quick Links
 
-## 🚀 The Architecture
-The system uses a "Cascading Cost" design: cheap checks run first; expensive checks run last.
+- **📄 Research Paper**: [Read the IEEE Conference Paper](paper/SentinelGate.pdf) *(Coming Soon to arXiv)*
+- **🎥 Live Demo**: [Watch the 11-Min Walkthrough](https://drive.google.com/file/d/1Gw1cTGUSmWXGlnL4JnOY5EQeIQ-6rdin/view?usp=sharing)
+- **API Docs**: `http://localhost:8000/docs` (Local)
+- **GitHub**: [dhrumil10/sentinel-gate](https://github.com/dhrumil10/sentinel-gate)
 
-1. **Layer 0 (Regex/Heuristic):** Instantly blocks junk/spam (e.g., "hi", "test", symbols-only) in <1ms.
-2. **Layer 1 (Semantic Noise):** Uses `sentence-transformers/all-MiniLM-L6-v2` to detect chitchat (e.g., "Tell me a joke") in ~10ms.
-3. **Layer 2 (Contrastive Domain):** A margin-based "Positive vs. Negative Anchor" check that distinguishes Domain Work (Supply Chain) from Generic Work (HR/IT/Admin).
+---
 
-### 🔧 What is Tau?
-Layer 2 uses a margin score:
-- `margin = similarity(domain_positive) - similarity(domain_negative)`
-- A prompt is **allowed** if `margin >= tau`
+## 📘 Project Description
 
-Lower tau (e.g., 0.05) is more permissive (higher recall), higher tau (e.g., 0.10) is stricter (lower risk of off-domain passing).
-For enterprise usage, SentinelGate recommends **tau = 0.10**.
+### 1. The "Cheap-First" Architecture
+* **Layer 0 (Heuristic):** $O(1)$ regex checks for null/spam inputs.
+* **Layer 1 (Semantic Noise):** Uses `all-MiniLM-L6-v2` to filter generic chit-chat.
+* **Layer 2 (Contrastive Domain):** Margin-based scoring to separate valid vs. invalid domains.
+* **Layer 2.5 (Adaptive Memory):** Admin-approved vector store for handling edge cases (e.g., IT Helpdesk).
 
-## ✅ Prompt Sanitization (New)
-SentinelGate includes a safe prefix sanitizer that removes greeting/filler prefixes to reduce false blocks and improve domain matching.
+### 2. FinOps Analytics Engine
+* **Real-Time ROI:** Tracks "Money Saved" per blocked prompt based on GPT-4 token pricing.
+* **Latency Monitoring:** Compares Gate Latency (~10ms) vs. avoided LLM Latency (~2000ms).
+* **Efficiency Metrics:** detailed dashboards for Blocked vs. Passed request ratios.
 
-Example:
-- `hey, where is my shipment` → `where is my shipment`
+### 3. Infrastructure & Tech Stack
+* **FastAPI:** High-performance async Python backend.
+* **React (Vite):** Modern dark-mode dashboard for monitoring and admin actions.
+* **Docker:** Containerized deployment for cloud scalability.
+* **Sentence-Transformers:** Local inference for embedding generation.
 
-The API returns both `original_prompt` and `clean_prompt` for transparency.
+---
 
-## 📊 Benchmark Results
-Tested on a synthetic dataset of 119 enterprise prompts.
+## 💻 Technologies and Tools
+
+[![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Docker](https://img.shields.io/badge/Docker-%232496ED?style=for-the-badge&logo=Docker&color=blue&logoColor=white)](https://www.docker.com)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-yellow)](https://huggingface.co/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)](https://pytorch.org/)
+[![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
+
+---
+
+## 🚀 Architecture Overview
+
+SentinelGate follows a **cascading cost design** — cheaper checks execute first, more expensive checks later. This ensures that 90% of junk prompts never consume expensive compute resources.
+
+![SentinelGate Architecture Diagram](assets/Architecture%20Diagram.png)
+
+### The 4-Stage Filter Logic:
+1.  **Layer 0:** Regex checks (<1ms) → *Blocks "hi", "test"*
+2.  **Layer 1:** Semantic Vector Search (~10ms) → *Blocks "tell me a joke"*
+3.  **Layer 2:** Contrastive Margin Score (~30ms) → *Blocks "reset my password" (IT)*
+4.  **Layer 2.5:** Approved Memory Store (~5ms) → *Allows "IT Helpdesk" if Admin approved*
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone the Repository:**
+```bash
+git clone [https://github.com/dhrumil10/sentinel-gate.git](https://github.com/dhrumil10/sentinel-gate.git)
+cd sentinel-gate
+```
+2. **Backend Setup (FastAPI):**
+```Bash
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the API
+python -m src.main
+```
+
+3. **Frontend Setup (React Dashboard):**
+```Bash
+cd sentinelgate-ui
+npm install
+npm run dev
+```
+4. **Run with Docker (Optional):**
+```Bash
+docker-compose up --build
+```
+## 📂 Directory Structuresentinel-gate/
+```
+├── config.yaml          # Gate configuration (domain, thresholds, anchors)
+├── Dockerfile           # Container config
+├── requirements.txt     # Python dependencies
+├── data/                # Data storage (JSON/CSV)
+│   ├── approved_examples.json
+│   ├── bypass_requests.json
+│   └── sentinelgate_research_data.csv
+├── experiments/         # Benchmarking & evaluation scripts
+│   ├── evaluate.py
+│   ├── generate_data.py
+│   └── run_benchmark.py
+├── paper/               # Research paper draft
+├── sentinelgate-ui/     # React + TypeScript frontend
+│   ├── src/
+│   │   ├── App.tsx      # Main React component
+│   │   └── main.tsx     # Entry point
+│   ├── package.json
+│   └── vite.config.ts
+└── src/                 # Python backend source
+    ├── main.py          # FastAPI application
+    └── sentinelgate/    # Core package
+        ├── approved_store.py
+        ├── bypass_store.py
+        ├── config.py
+        ├── pipeline.py  # Gate logic
+        └── similarity.py
+```
+---
+## 📊 Performance 
+### Evaluated on a synthetic enterprise dataset (119 prompts).
 
 | Metric | Result |
 | :--- | :--- |
@@ -44,116 +135,36 @@ Tested on a synthetic dataset of 119 enterprise prompts.
 | **Junk Blocking** | 100.0% |
 | **Generic Blocking** | 100.0% |
 | **Domain Accuracy** | 80.0% |
-| **Avg Latency** | ~9.65 ms |
+| **Avg Gate Latency** | ~9.65 ms |
 | **Est. Cost Savings** | ~$1.26 per 100 requests |
 
-## 🛠️ Installation & Usage
-
-### 1. Clone the Repo
-```bash
-git clone https://github.com/dhrumil10/sentinel-gate.git
-cd sentinel-gate
-```
-### 2. Install Dependencies
-```bash
-python -m venv venv
-```
-# Windows: venv\Scripts\activate
-# Mac/Linux: source venv/bin/activate
-```bash
-pip install -r requirements.txt
-```
-
-## 🚀 Run the API (FastAPI)
-
-### From repo root:
-```bash
-Windows PowerShell
-$env:PYTHONPATH="."
-uvicorn src.main:app --reload
-```
-
-### Mac/Linux
-```bash
-export PYTHONPATH="."
-uvicorn src.main:app --reload
-```
-
-### Open Swagger:
-```
-http://127.0.0.1:8000/docs
-```
-
-## 🔌 API Endpoints
-```
-GET / → health check
-
-POST /scan → scan a prompt (PASS/BLOCK)
-
-GET /analytics → FinOps metrics (blocked count, estimated savings)
-
-Example /scan Response
+**Example ```/scan``` Response**
+```json
 {
   "decision": "PASSED",
-  "layer_caught": "L2",
-  "reason": "domain_match",
-  "gate_latency_ms": 40.08,
+  "layer_caught": "L2.5",
+  "reason": "approved_match",
+  "gate_latency_ms": 39.04,
   "action": "SEND_TO_LLM",
-  "original_prompt": "hey, where is my shipment",
-  "clean_prompt": "where is my shipment",
-  "debug": { "similarity": 0.48, "margin": 0.31 }
+  "original_prompt": "vpn is not working on my corporate laptop",
+  "clean_prompt": "vpn is not working on my corporate laptop",
+  "approved_match": {
+    "domain": "it_helpdesk",
+    "similarity": 0.83
+  },
+  "debug": {
+    "similarity": 0.83,
+    "margin": null
+  }
 }
 ```
 
-## 🧪 Experiments
-### 1) Evaluate (metrics + confusion matrix)
-# Windows PowerShell
-```
-$env:PYTHONPATH="."
-python experiments/evaluate.py
-```
+## 👤 Author
+# Dhrumil Patel
 
-### 2) Tune Tau (sweep margin threshold)
-# Windows PowerShell
-```
-$env:PYTHONPATH="."
-python experiments/tune_tau.py
-```
+**MS in Northeastern University, College of Engineering**
 
-### Outputs:
-```
-prints tau sweep table
+[LinkedIn](https://www.linkedin.com/in/dhrumil-patel-10) | [GitHub](https://github.com/dhrumil10)
 
-saves: experiments/tau_sweep_results.csv
-```
-
-## ⚙️ Configuration
-
-### SentinelGate is config-driven via config.yaml:
-
-### domain name
-
-**Layer 0 rules**
-
-**Layer 1 anchors**
-
-**Layer 2 positive/negative anchors**
-
-thresholds (layer1_noise_max_sim, layer2_margin_tau)
-
-**Important**:
-
-keep layer2_margin_tau only once in config.yaml
-
-### Recommended enterprise config:
-
-**layer2_margin_tau**: 0.10
-
-## 📄 Research & Citation
-
-This project supports a research direction around FinOps-driven LLM governance and domain relevance filtering.
-
-### Proposed paper title:
-"SentinelGate: A Hierarchical Cheap-First Guardrail Architecture for Cost-Efficient Domain Relevance"
-
-::contentReference[oaicite:0]{index=0}
+## 📜 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
