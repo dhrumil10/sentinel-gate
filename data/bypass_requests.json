@@ -1,0 +1,26 @@
+[
+  {
+    "id": "403b3835-7837-4340-846f-2334b663c231",
+    "status": "APPROVED",
+    "requested_domain": "backend_development",
+    "user_reason": "Need to route this to the right assistant in the new feature implementation",
+    "original_prompt": "how to develop crm API configure to our frontend",
+    "clean_prompt": "how to develop crm API configure to our frontend",
+    "created_at": "2026-02-11T01:14:32.780093+00:00",
+    "reviewed_at": "2026-02-11T01:15:52.106879+00:00",
+    "reviewed_by": "admin@company.com",
+    "review_note": "Stored approved example_id=d93b9cd3-96db-49c6-8472-9a0bd65d249a domain=backend_development"
+  },
+  {
+    "id": "0a1e474a-abc8-4b36-9832-900388f8befa",
+    "status": "APPROVED",
+    "requested_domain": "it_helpdesk",
+    "user_reason": "Need to route this to the right assistant for now and future improvement process",
+    "original_prompt": "how to fix vpn and overheating computer issue?",
+    "clean_prompt": "how to fix vpn and overheating computer issue?",
+    "created_at": "2026-02-11T01:46:19.796988+00:00",
+    "reviewed_at": "2026-02-11T01:47:05.162225+00:00",
+    "reviewed_by": "admin@company.com",
+    "review_note": "Stored approved example_id=bb3064a3-9108-438a-b8eb-49c6cf58f601 domain=it_helpdesk"
+  }
+]
